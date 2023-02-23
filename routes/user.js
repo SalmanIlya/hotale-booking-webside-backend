@@ -4,7 +4,7 @@ const app=express.Router()
 
 
 app.post("/create",auth.CreateUser)
-
+app.post("/login",auth.LoginUser)
 
 
 
