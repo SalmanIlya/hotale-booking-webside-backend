@@ -6,11 +6,11 @@ module.exports = {
             const savehotale = await hotal.save()
             res.status(202).json(savehotale)
         } catch(err){
-            next()
+            next(err)
         }
     },
     // update hotal 
-    updateUser: async (req, res) => {
+    updateUser: async (req, res,next) => {
         try {
             const hotal = await Hotel.findById(req.params.id)
             if (hotal) {
@@ -25,11 +25,11 @@ module.exports = {
             }
 
         } catch (err) {
-            res.status(500).json(err)
+          next(err)
 
         }
     },
-    deleteHotale: async (req, res) => {
+    deleteHotale: async (req, res,next) => {
         try {
             const hotal = await Hotel.findById(req.params.id)
             if (hotal) {
@@ -41,12 +41,12 @@ module.exports = {
 
             }
         } catch (err) {
-            res.status(500).json(err)
+            next(err)
 
         }
     },
     // get single hotal
-    getSingle:async(req,res)=>{
+    getSingle:async(req,res,next)=>{
         try{
             const hotal = await Hotel.findById(req.params.id)
             if(hotal){
@@ -57,19 +57,19 @@ module.exports = {
 
             }
         }catch (err) {
-            res.status(500).json(err)
+            next(err)
 
         }
 
     },
     // get All
-    getAll:async(req,res)=>{
+    getAll:async(req,res,next)=>{
         try{
 const hotal=await Hotel.find()
 res.status(200).json(hotal)
 
         }catch (err) {
-            res.status(500).json(err)
+       next(err)
 
         }
 

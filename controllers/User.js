@@ -1,12 +1,11 @@
 const User=require("../models/User")
 const cryptojs=require("crypto-js")
 const dotenv=require("dotenv")
-const { use } = require("../app")
 dotenv.config({path:"config/config.env"})
 const secritkey=process.env.sk
 module.exports={
     // update user 
-    updateUser:async(req,res)=>{
+    updateUser:async(req,res,next)=>{
 try{
     const user=await User.findById(req.params.id)
     if(user){
@@ -30,11 +29,11 @@ res.status(202).json(useritem)
         res.status(404).json("user not found")
     }
 }catch(err){
-    res.status(505).json("error is:",err)
+   next(err)
 }
     },
     // delete user 
-    deleteUser:async(req,res)=>{
+    deleteUser:async(req,res,next)=>{
         try{
             const user=await User.findById(req.params.id)
             if(user){
@@ -44,12 +43,12 @@ res.status(202).json(useritem)
                 res.status(404).json("user not found")
             }
         }catch(err){
-    res.status(505).json("error is:",err)
+next(err)
 
         }
     },
     // get one user 
-    getOneUser:async(req,res)=>{
+    getOneUser:async(req,res,next)=>{
         try{
 const user=await User.findById(req.params.id)
 if(user){
@@ -59,17 +58,17 @@ if(user){
     res.status(404).json("user not found")
 }
         }catch(err){
-    res.status(505).json("error is:",err)
+  next(err)
 
         }
     },
     // get all user 
-    getAllUser:async(req,res)=>{
+    getAllUser:async(req,res,next)=>{
         try{
             const user=await User.find()
             res.send(user)
         }catch(err){
-    res.status(505).json("error is:",err)
+   next(err)
 
         }
     },
