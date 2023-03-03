@@ -11,4 +11,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 app.use(express.json());
 app.use("/api",admin)
+
+app.use((error,req,res,next)=>{
+    const errorstatus=error.status || 500
+    const errormassage=error.massage||"not found"
+    return res.status(errorstatus).json({
+        success:"false",
+        status:errorstatus,
+        massage:errormassage,
+        stack:error.stack
+    })
+})
 module.exports=app
