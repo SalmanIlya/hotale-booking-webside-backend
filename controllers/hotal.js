@@ -1,12 +1,12 @@
 const Hotel = require("../models/Hotal")
 module.exports = {
-    createHotale: async (req, res) => {
+    createHotale: async (req, res,next) => {
         const hotal = new Hotel(req.body)
         try {
             const savehotale = await hotal.save()
             res.status(202).json(savehotale)
-        } catch (err) {
-            res.status(500).json(err)
+        } catch(err){
+            next()
         }
     },
     // update hotal 
